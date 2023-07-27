@@ -31,7 +31,7 @@ setup(
     long_description_content_type="text/x-rst",
     author="Stepan Starovoitov",
     author_email="stepan.startech@gmail.com",
-    # url="http://teev.startech.live",
+    url="http://dbcc.startech.live",
     project_urls=OrderedDict(
         (
             # ("Documentation", "http://teev.startech.live"),
