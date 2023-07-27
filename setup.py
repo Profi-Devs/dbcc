@@ -31,12 +31,12 @@ setup(
     long_description_content_type="text/x-rst",
     author="Stepan Starovoitov",
     author_email="stepan.startech@gmail.com",
-    url="http://dbcc.startech.live",
+    url="https://github.com/Profi-Devs/dbcc",
     project_urls=OrderedDict(
         (
             # ("Documentation", "http://teev.startech.live"),
-            ("Code", "https://git.the-devs.com/opensource/py-modules/database-connector/database-connector"),
-            ("Issue tracker", "https://github.com/startech-live/teev/issues"),
+            ("Code", "https://github.com/Profi-Devs/dbcc"),
+            ("Issue tracker", "https://github.com/Profi-Devs/dbcc/issues"),
         )
     ),
     license="BSD",

@@ -1,5 +1,5 @@
 DBCC - Database Connector
-====
+=========================
 .. image:: https://img.shields.io/badge/test-pass-00d200.svg
     :target: nono
 
@@ -25,13 +25,13 @@ Dbcc is Simple
     result = collection.create({"any":"entry"})
     print(result["id"])
 
-
 Features
 --------
+In process
 
 To Do
 -----
-
+In process
 
 License
 -------
