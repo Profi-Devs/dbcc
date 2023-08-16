@@ -65,5 +65,8 @@ class MongoTableEngine(TableEngine):
     async def delete_by_id(self, id: Union[str, ObjectId]):
         await self.collection.delete_one({"_id": ObjectId(id)})
 
-    async def find_single(self, field: str, value):
-        return await self.collection.find_one({field: value})
+    async def find_single(self, field: str, value: Any, projection: dict = None):
+        routine = self.collection.find_one({field: value})
+        if projection:
+            routine = routine.projection(projection)
+        return await routine
