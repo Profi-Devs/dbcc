@@ -13,7 +13,11 @@ class TableEngine:
     def __getitem__(self, key):
         return TableEngine(self.url, self.db_name, key)
 
-    async def find_batch(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None) -> list:
+    async def find_batch(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None, projection: dict = None) -> list:
+        raise NotImplementedError()
+
+    async def find_batch_raw(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None,
+                             projection: dict = None) -> list:
         raise NotImplementedError()
 
     async def create(self, entry: dict) -> dict:

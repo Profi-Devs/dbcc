@@ -22,7 +22,7 @@ Dbcc is Simple
 
     db = MongoTableEngine(URL, DB_NAME)
     collection = db["collection"]
-    result = collection.create({"any":"entry"})
+    result = await collection.create({"any":"entry"})
     print(result["id"])
 
 Features

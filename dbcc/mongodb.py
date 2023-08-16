@@ -1,5 +1,5 @@
 import asyncio
-from typing import Any, Union
+from typing import Any, Union, AsyncIterable
 
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -33,16 +33,24 @@ class MongoTableEngine(TableEngine):
     def __getitem__(self, key):
         return MongoTableEngine(self.url, self.db_name, key)
 
-    async def find_batch(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None) -> list:
+    async def find_batch(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None, projection: dict = None) -> list:
+        return [entity async for entity in self.find_batch_raw(pattern, skip, limit, sort, projection)]
+
+    def find_batch_raw(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None, projection: dict = None) -> AsyncIterable:
         pattern = pattern if pattern else {}
         routine = self.collection.find(pattern)
         if sort:
             routine = routine.sort(sort)
+        if projection:
+            routine = routine.projection(projection)
         if limit:
             routine = routine.limit(limit)
         if skip:
             routine = routine.skip(skip)
-        return [entity async for entity in routine]
+        return routine
+
+    async def count(self, pattern: dict = None):
+        return await self.collection.count_documents(pattern)
 
     async def create(self, entry: dict) -> dict:
         inserted_id = (await self.collection.insert_one(entry)).inserted_id
