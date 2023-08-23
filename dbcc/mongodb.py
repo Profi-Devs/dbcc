@@ -63,7 +63,5 @@ class MongoTableEngine(TableEngine):
         await self.collection.delete_one({"_id": ObjectId(id)})
 
     async def find_single(self, field: str, value: Any, projection: dict = None):
-        routine = self.collection.find_one({field: value})
-        if projection:
-            routine = routine.projection(projection)
+        routine = self.collection.find_one({field: value}, projection)
         return await routine
