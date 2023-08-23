@@ -37,12 +37,9 @@ class MongoTableEngine(TableEngine):
         return [entity async for entity in self.find_batch_raw(pattern, skip, limit, sort, projection)]
 
     def find_batch_raw(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None, projection: dict = None) -> AsyncIterable:
-        pattern = pattern if pattern else {}
-        routine = self.collection.find(pattern)
+        routine = self.collection.find(pattern, projection)
         if sort:
             routine = routine.sort(sort)
-        if projection:
-            routine = routine.projection(projection)
         if limit:
             routine = routine.limit(limit)
         if skip:
