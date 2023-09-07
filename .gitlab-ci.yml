@@ -1,4 +1,5 @@
-include: '.gitlab/templates/.test.yml'
+include:
+   - local: '/.gitlab/templates/.test.yml'
 
 stages:
   - test
