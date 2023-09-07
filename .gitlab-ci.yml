@@ -1,3 +1,5 @@
+include: '.gitlab/templates/.test.yml'
+
 stages:
   - test
   - build
