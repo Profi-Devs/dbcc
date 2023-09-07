@@ -25,6 +25,8 @@ variables:
   - echo "MONGO_URI=mongodb://$MONGO_USER:$MONGO_PASSWORD@sotrans_mongodb:27017" >> .env
   - cat .env
 
+test:
+
 push to docker:
   stage: build
   only:
