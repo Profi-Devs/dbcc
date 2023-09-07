@@ -12,7 +12,7 @@ Support questions
 Please, don't use the issue tracker for this. Use one of the following
 resources for questions about your own code:
 
-* Ask on `Stack Overflow`_. Search with Google first using: ``site:stackoverflow.com teev {search term, exception message, etc.}``
+* Ask on `Stack Overflow`_. Search with Google first using: ``site:stackoverflow.com dbcc {search term, exception message, etc.}``
 
 .. _Stack Overflow: https://stackoverflow.com/questions/tagged/bnotif?sort=linked
 
@@ -25,7 +25,7 @@ Reporting issues
   own code.
 - Describe what actually happened. Include the full traceback if there was an
   exception.
-- List your Python and teev versions. If possible, check if this issue is
+- List your Python and dbcc versions. If possible, check if this issue is
   already fixed in the repository.
 
 .. _minimal, complete, and verifiable example: https://stackoverflow.com/help/mcve
@@ -51,15 +51,15 @@ First time setup
         git config --global user.email 'your email'
 
 - Make sure you have a `GitHub account`_.
-- Fork teev to your GitHub account by clicking the `Fork`_ button.
+- Fork dbcc to your GitHub account by clicking the `Fork`_ button.
 - `Clone`_ your GitHub fork locally::
 
-        git clone https://github.com/{username}/teev
-        cd teev
+        git clone https://github.com/{username}/dbcc
+        cd dbcc
 
 - Add the main repository as a remote to update later::
 
-        git remote add startech-live https://github.com/startech-live/teev
+        git remote add startech-live https://github.com/startech-live/dbcc
         git fetch startech-live
 
 - Create a virtualenv::
@@ -84,7 +84,7 @@ First time setup
 .. _latest version of git: https://git-scm.com/downloads
 .. _username: https://help.github.com/articles/setting-your-username-in-git/
 .. _email: https://help.github.com/articles/setting-your-email-in-git/
-.. _Fork: https://github.com/startech-live/teev/fork
+.. _Fork: https://github.com/startech-live/dbcc/fork
 .. _Clone: https://help.github.com/articles/fork-a-repo/#step-2-create-a-local-clone-of-your-fork
 
 Start coding
@@ -157,7 +157,7 @@ Read more about `Sphinx <http://www.sphinx-doc.org>`_.
 
 make targets
 ~~~~~~~~~~~~
-teev provides a ``Makefile`` with various shortcuts. They will ensure that
+dbcc provides a ``Makefile`` with various shortcuts. They will ensure that
 all dependencies are installed.
 
 - ``make test`` runs the basic test suite with ``pytest``
@@ -180,10 +180,10 @@ notice any typo and/or mistake), why not help with that? In any case, other
 than GitHub help_ pages, you might want to check this excellent `Effective
 Guide to Pull Requests`_
 
-.. _`the repository`: http://github.com/startech-live/teev
-.. _AUTHORS: https://github.com/startech-live/teev/blob/master/AUTHORS
-.. _`open issues`: https://github.com/startech-live/teev/issues
-.. _`new issue`: https://github.com/startech-live/teev/issues/new
+.. _`the repository`: http://github.com/startech-live/dbcc
+.. _AUTHORS: https://github.com/startech-live/dbcc/blob/master/AUTHORS
+.. _`open issues`: https://github.com/startech-live/dbcc/issues
+.. _`new issue`: https://github.com/startech-live/dbcc/issues/new
 .. _GitHub: https://github.com/
 .. _`proper format`: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 .. _flake8: http://flake8.readthedocs.org/en/latest/
@@ -192,4 +192,4 @@ Guide to Pull Requests`_
 .. _`Effective Guide to Pull Requests`: http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/
 .. _`fork and edit`: https://github.com/blog/844-forking-with-the-edit-button
 .. _`Pull Request`: https://help.github.com/articles/creating-a-pull-request
-.. _`running the tests`: http:///teev.startech.live/testing#running-the-tests
+.. _`running the tests`: http:///dbcc.startech.live/testing#running-the-tests

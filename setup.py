@@ -13,13 +13,15 @@ with io.open("dbcc/__init__.py", "rt", encoding="utf8") as f:
     VERSION = re.search(r"__version__ = \"(.*?)\"", f.read()).group(1)
 
 INSTALL_REQUIRES = [
-    "pymongo==4.2.0",
-    "motor==3.0.0",
+    "pymongo==4.5.0",
+    "asyncio==3.4.3",
+    "motor==3.3.1",
+    "mongomock-motor==0.0.21",
 ]
 
 EXTRAS_REQUIRE = {
     "docs": ["sphinx", "alabaster", "doc8"],
-    "tests": ["testfixtures", "pytest", "tox"],
+    "tests": ["testfixtures", "pytest", "tox", "black"],
 }
 EXTRAS_REQUIRE["dev"] = EXTRAS_REQUIRE["tests"] + EXTRAS_REQUIRE["docs"]
 
@@ -42,7 +44,7 @@ setup(
     license="BSD",
     platforms=["any"],
     packages=find_packages(),
-    # test_suite="dbcc.tests",
+    test_suite="dbcc.tests",
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
     python_requires=">=3.8",
@@ -57,6 +59,6 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Topic :: Database",
-        "Topic :: Database :: Database Engines/Servers"
+        "Topic :: Database :: Database Engines/Servers",
     ],
 )

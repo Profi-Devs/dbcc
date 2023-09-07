@@ -18,25 +18,59 @@ class MongoTableEngine(TableEngine):
     db: Any = None
     collection: Any = None
 
-    def __init__(self, url: str, db_name: str, collection_name: str = None):
+    def __init__(
+        self,
+        url: str,
+        db_name: str,
+        collection_name: str = None,
+        mongo_translate_id: bool = True,
+        mock_db_in_mem: bool = False,
+    ):
         super().__init__(url, db_name, collection_name)
         global mongo
+
         if not mongo:
-            mongo = AsyncIOMotorClient(
-                url, connect=False
-            )  # , tls=True, tlsAllowInvalidCertificates=True)
-            mongo.get_io_loop = asyncio.get_event_loop
+            if not mock_db_in_mem:
+                mongo = AsyncIOMotorClient(
+                    url, connect=False
+                )  # , tls=True, tlsAllowInvalidCertificates=True)
+                mongo.get_io_loop = asyncio.get_event_loop
+            else:
+                from mongomock_motor import AsyncMongoMockClient
+
+                mongo = AsyncMongoMockClient(url, connect=False)
+                mongo.get_io_loop = asyncio.get_event_loop
         self.db = mongo[self.db_name]
         if collection_name:
             self.collection = self.db[collection_name]
+        self.mongo_translate_id = mongo_translate_id
 
     def __getitem__(self, key):
         return MongoTableEngine(self.url, self.db_name, key)
 
-    async def find_batch(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None, projection: dict = None) -> list:
-        return [entity async for entity in self.find_batch_raw(pattern, skip, limit, sort, projection)]
+    async def find_batch(
+        self,
+        pattern: dict = None,
+        skip: int = None,
+        limit: int = None,
+        sort: list = None,
+        projection: dict = None,
+    ) -> list:
+        return [
+            entity
+            async for entity in self.find_batch_raw(
+                pattern, skip, limit, sort, projection
+            )
+        ]
 
-    def find_batch_raw(self, pattern: dict = None, skip: int = None, limit: int = None, sort: list = None, projection: dict = None) -> AsyncIterable:
+    def find_batch_raw(
+        self,
+        pattern: dict = None,
+        skip: int = None,
+        limit: int = None,
+        sort: list = None,
+        projection: dict = None,
+    ) -> AsyncIterable:
         routine = self.collection.find(pattern, projection)
         if sort:
             routine = routine.sort(sort)
@@ -51,13 +85,18 @@ class MongoTableEngine(TableEngine):
 
     async def create(self, entry: dict) -> dict:
         inserted_id = (await self.collection.insert_one(entry)).inserted_id
-        await self.update_by_id(inserted_id, {"id": str(inserted_id)})
-        entry["id"] = str(inserted_id)
+        if self.mongo_translate_id:
+            await self.update_by_id(inserted_id, {"id": str(inserted_id)})
+            entry["id"] = str(inserted_id)
+        else:
+            entry["_id"] = ObjectId(inserted_id)
         return entry
 
     async def update_by_id(self, id: Union[str, ObjectId], payload: dict):
         remove_id(payload)
-        return await self.collection.update_one({"_id": ObjectId(id)}, {"$set": payload})
+        return await self.collection.update_one(
+            {"_id": ObjectId(id)}, {"$set": payload}
+        )
 
     async def delete_by_id(self, id: Union[str, ObjectId]):
         await self.collection.delete_one({"_id": ObjectId(id)})
