@@ -1,5 +1,6 @@
 
 test:
+  image: python:latest
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
   cache:
@@ -12,7 +13,6 @@ test:
     - virtualenv venv
     - source venv/bin/activate
     - pip install -e ".[dev]"
-  image: python:latest
   stage: test
   script:
     - python3 -m unittest
