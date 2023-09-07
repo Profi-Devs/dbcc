@@ -17,14 +17,15 @@ test:
   script:
     - python3 -m unittest
   rules:
-    - if: $CI_COMMIT_BRANCH
-      changes:
-        compare_to: $CI_COMMIT_BRANCH
-        paths:
-          - 'dbcc'
-          - '.gitlab/templates/.test.yml'
-          - 'tox.ini'
-          - 'pytest.ini'
-          - 'setup.py'
-          - 'pyproject.toml'
-          - '.pre-commit-config.yaml'
+    - when: always
+#    - if: $CI_COMMIT_BRANCH
+#      changes:
+#        compare_to: $CI_COMMIT_BRANCH
+#        paths:
+#          - 'dbcc'
+#          - '.gitlab/templates/.test.yml'
+#          - 'tox.ini'
+#          - 'pytest.ini'
+#          - 'setup.py'
+#          - 'pyproject.toml'
+#          - '.pre-commit-config.yaml'
