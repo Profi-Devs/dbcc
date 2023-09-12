@@ -31,7 +31,9 @@ class MongoTableEngine(TableEngine):
 
         if not mongo:
             if not mock_db_in_mem:
-                mongo = AsyncIOMotorClient(url, connect=False)
+                mongo = AsyncIOMotorClient(
+                    url, connect=False, uuidRepresentation="standard"
+                )
                 mongo.get_io_loop = asyncio.get_event_loop
             else:
                 from mongomock_motor import AsyncMongoMockClient
